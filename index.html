@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>React Sports Game</title>
+    <link rel='stylesheet' href='style.css'>
 </head>
 <body>
     <!-- include an element for ReactDOM to attach our React-generated elements to -->
@@ -17,25 +18,89 @@
     <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
     <!-- include our JS+JSX for the React Appliccation -->
-<script type="text/babel">
+    <script type="text/babel">
 
-// An App component under which all other components will be added
-function App (props) {
-  return (
-    <div>
-      <h1>Welcome to the Sports Game starter!</h1>
-      <em>This file represents the way your code should look after completing the <strong>Setup</strong> steps in the instructions.</em>
-    </div>
-  )
-}
+      // Classes
+      class Team extends React.Component {
+        constructor(props) {
+          super(props);
+          this.teamName = props.teamName;
+          this.teamImage = props.teamImage;
+
+          this.state = {
+            shotsTaken: 0,
+            goalsMade: 0,
+          }
+
+      };
+
+      shotHandler = () => {
+        let goals = this.state.goalsMade;
+        let shotResult = 0.0;
+        console.log('shot taken');
+        // Randomize goal success
+        shotResult = Math.random();
+        console.log(shotResult);
+        if (shotResult > 0.5) {
+          goals += 1;
+        }
+        this.setState((state, props) => ({
+        // Increment shot counter
+        shotsTaken: state.shotsTaken + 1,
+          goalsMade: goals
+      }))
+
+      }
+
+      render() {
+        console.log('rendering  team');
+        return (
+          <div>
+            <h2>{this.props.teamName}</h2>
+            <div> 
+              <img src={this.props.teamImage} alt={this.props.teamName} />
+            </div>
+            <button onClick={this.shotHandler}>Take Shot</button><br></br>
+            <div>
+              Shots Taken: {this.state.shotsTaken}
+            </div>
+            <div>
+              Goals: {this.state.goalsMade}
+            </div>
+            <div>
+              Scoring Percentage:
+            </div>
+             
+          </div>)
+      }
+
+    }
+
+    // An App component under which all other components will be added
+    function App (props) {
+      return (
+        <div>
+          <h1>Welcome to the Sports Game!  Go Sports! </h1>
+          <div>
+            <Team teamName="Flatulant Turkeys" teamImage="https://cdn.pixabay.com/photo/2016/04/01/09/08/turkey-1299176_960_720.png"/>
+          </div>
+          <div className='Versus'>
+            VS
+            </div>
+          <div>
+            <Team teamName='Uncertain Buffalo' teamImage='https://cdn.pixabay.com/photo/2013/07/13/12/45/bison-160267_960_720.png'/>
+          </div>
+        </div>
+      )
+    }
 
 
 
-// Render the App
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-)
-</script>
+    // Render the App
+    ReactDOM.render(
+      <App />,
+      document.getElementById('root')
+    )
+  </script>
 </body>
 </html>

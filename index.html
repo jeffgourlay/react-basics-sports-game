@@ -21,6 +21,7 @@
     <script type="text/babel">
 
       // Classes
+      // Team class
       class Team extends React.Component {
         constructor(props) {
           super(props);
@@ -30,11 +31,12 @@
           this.state = {
             shotsTaken: 0,
             goalsMade: 0,
+            goalPercentage: ''
           }
 
       };
 
-      shotHandler = () => {
+      shotHandler = (event) => {
         let goals = this.state.goalsMade;
         let shotResult = 0.0;
         console.log('shot taken');
@@ -42,13 +44,18 @@
         shotResult = Math.random();
         console.log(shotResult);
         if (shotResult > 0.5) {
+          // Play sound
+          goalSound.play();
           goals += 1;
         }
+
+        console.log('Shots: ' + (this.state.shotsTaken + 1) + ' - Goals:' + this.state.goalsMade + ' Percentage; ' + this.state.goalsMade / this.shotsTaken + 1)
         this.setState((state, props) => ({
-        // Increment shot counter
-        shotsTaken: state.shotsTaken + 1,
-          goalsMade: goals
-      }))
+          // Increment shot counter
+          shotsTaken: state.shotsTaken + 1,
+          goalsMade: goals,
+          goalPercentage: goals / (state.shotsTaken + 1)
+        }))
 
       }
 
@@ -68,7 +75,7 @@
               Goals: {this.state.goalsMade}
             </div>
             <div>
-              Scoring Percentage:
+              Scoring Percentage: {this.state.goalPercentage}
             </div>
              
           </div>)
@@ -76,25 +83,40 @@
 
     }
 
-    // An App component under which all other components will be added
-    function App (props) {
+    // Functions
+    // Game function
+    function Game (props) {
       return (
         <div>
-          <h1>Welcome to the Sports Game!  Go Sports! </h1>
-          <div>
-            <Team teamName="Flatulant Turkeys" teamImage="https://cdn.pixabay.com/photo/2016/04/01/09/08/turkey-1299176_960_720.png"/>
-          </div>
-          <div className='Versus'>
-            VS
+          <h1>Welcome to {props.venueName} Arena!  Sponsored by Slurm Cola and Duff Beer</h1>
+          <h2>TODAY'S GAME!!!</h2>
+          <div className='Statistics'>
+            <div>
+              <Team teamName="Citytown College Flatulant Turkeys" teamImage="./Images/turkey-1299176_960_720.webp"/>
             </div>
-          <div>
-            <Team teamName='Uncertain Buffalo' teamImage='https://cdn.pixabay.com/photo/2013/07/13/12/45/bison-160267_960_720.png'/>
+            <div className='Versus'>
+              VS
+            </div>
+            <div>
+             <Team teamName='Univ Of Southern North Dakota at Hoople Uncertain Buffalos' teamImage='./Images/bison-160267_960_720.png'/>
+           </div>
           </div>
         </div>
       )
     }
 
 
+    // An App component under which all other components will be added
+    function App (props) {
+      return (
+        <div>
+          <Game venueName='Slurm McKenzie'/>
+        </div>
+      )
+    }
+
+    // Load audio element
+    let goalSound = new Audio('./audio/crowdhomerunapplause.wav');
 
     // Render the App
     ReactDOM.render(

@@ -87,17 +87,17 @@
     // Game function
     function Game (props) {
       return (
-        <div>
+        <div className='Game'>
           <h1>Welcome to {props.venueName} Arena!  Sponsored by Slurm Cola and Duff Beer!  Go Sports!!</h1>
           <h2>TODAY'S GAME!!!</h2>
-          <div className='Statistics'>
-            <div>
-              <Team teamName="Citytown College Flatulant Turkeys" teamImage="./Images/turkey-1299176_960_720.webp"/>
+          <div className='statistics'>
+            <div className='Team'>
+              <Team teamName="Citytown College Flatulent Turkeys" teamImage="./Images/turkey-1299176_960_720.webp"/>
             </div>
-            <div className='Versus'>
-              VS
+            <div className='versus'>
+              <h2>VS</h2>
             </div>
-            <div>
+            <div className='Team'>
              <Team teamName='Univ Of Southern North Dakota at Hoople Uncertain Buffalos' teamImage='./Images/bison-160267_960_720.png'/>
            </div>
           </div>
@@ -110,7 +110,7 @@
     function App (props) {
       return (
         <div>
-          <Game venueName='Slurm McKenzie'/>
+          <Game venueName='Slurms McKenzie'/>
         </div>
       )
     }

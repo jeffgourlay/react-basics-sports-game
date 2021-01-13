@@ -1,8 +1,50 @@
+html * {
+    box-sizing: border-box;
+}
+  
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Oswald', sans-serif;
+  }
 img {
     height: 100px;
     width: 100px;
 }
 
+.Game {
+    text-align: center;
+}
+
+.statisticss {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+.Team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 30rem;
+}
+
+.Team .identity {
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+.versus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
 button {
     background-color: lightblue;
 }
+

@@ -20,24 +20,26 @@
     <!-- include our JS+JSX for the React Appliccation -->
     <script type="text/babel">
 
-      // Classes
-      // Team class
-      class Team extends React.Component {
-        constructor(props) {
-          super(props);
-          this.teamName = props.teamName;
-          this.teamImage = props.teamImage;
+    // Classes
+    // Game class
+    class Game extends React.Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          teamOneGoals: 0,
+          teamOneName: '',
+          teamOneGoalPercentage: '',
+          teamOneShots: 0,
+          teamTwoGoals: 0,
+          teamTwoName: '',
+          teamTwoGoalPercentage: '',
+          teamTwoShots: 0
+        }
+      }
 
-          this.state = {
-            shotsTaken: 0,
-            goalsMade: 0,
-            goalPercentage: ''
-          }
-
-      };
-
-      shotHandler = (event) => {
-        let goals = this.state.goalsMade;
+      // TODO: This was in Team. Moved here.  Adjust accordingly
+      teamOneShotHandler = (event) => {
+        let goals = this.state.teamOneGoals;
         let shotResult = 0.0;
         console.log('shot taken');
         // Randomize goal success
@@ -49,64 +51,95 @@
           goals += 1;
         }
 
-        console.log('Shots: ' + (this.state.shotsTaken + 1) + ' - Goals:' + this.state.goalsMade + ' Percentage; ' + this.state.goalsMade / this.shotsTaken + 1)
+        console.log('Shots: ' + (this.state.teamOneShots + 1) + ' - Goals:' + this.state.teamOneGoals + ' Percentage; ' + this.state.teamOneGoals / this.teamOneShots + 1)
+        console.log(this.props);
+        console.log(this.state);
         this.setState((state, props) => ({
           // Increment shot counter
-          shotsTaken: state.shotsTaken + 1,
-          goalsMade: goals,
-          goalPercentage: goals / (state.shotsTaken + 1)
+          teamOneShots: state.teamOneShots + 1,
+          teamOneGoals: goals,
+          teamOneGoalPercentage: goals / (state.teamOneShots + 1)
         }))
 
       }
 
-      render() {
-        console.log('rendering  team');
-        return (
-          <div>
-            <h2>{this.props.teamName}</h2>
-            <div> 
-              <img src={this.props.teamImage} alt={this.props.teamName} />
-            </div>
-            <button onClick={this.shotHandler}>Take Shot</button><br></br>
-            <div>
-              Shots Taken: {this.state.shotsTaken}
-            </div>
-            <div>
-              Goals: {this.state.goalsMade}
-            </div>
-            <div>
-              Scoring Percentage: {this.state.goalPercentage}
-            </div>
-             
-          </div>)
+      teamTwoShotHandler = (event) => {
+        let goals = this.state.teamTwoGoals;
+        let shotResult = 0.0;
+        console.log('shot taken');
+        // Randomize goal success
+        shotResult = Math.random();
+        console.log(shotResult);
+        if (shotResult > 0.5) {
+          // Play sound
+          goalSound.play();
+          goals += 1;
+        }
+
+        console.log('Shots: ' + (this.state.teamTwoShots + 1) + ' - Goals:' + this.state.teamTwoGoals + ' Percentage; ' + this.state.teamTwoGoals / this.teamTwoShots + 1)
+        console.log(this.props);
+        console.log(this.state);
+        this.setState((state, props) => ({
+          // Increment shot counter
+          teamTwoShots: state.teamTwoShots + 1,
+          teamTwoGoals: goals,
+          teamTwoGoalPercentage: goals / (state.teamTwoShots + 1)
+        }))
+
       }
 
-    }
 
-    // Functions
-    // Game function
-    function Game (props) {
-      return (
+      // End TODO
+      render (props) {
+        return(
         <div className='Game'>
-          <h1>Welcome to {props.venueName} Arena!  Sponsored by Slurm Cola and Duff Beer!  Go Sports!!</h1>
+          <h1>Welcome to {this.props.venueName}!  Sponsored by Slurm Cola and Duff Beer!  Go Sports!!</h1>
           <h2>TODAY'S GAME!!!</h2>
           <div className="statistics">
-              <Team teamName="Citytown College Flatulent Turkeys" teamImage="./Images/turkey-1299176_960_720.webp"/>
+              <Team teamName="Citytown College Flatulent Turkeys" teamImage="./Images/turkey-1299176_960_720.webp" 
+               shotEventHandler={this.teamOneShotHandler} shotsTaken={this.state.teamOneShots} goalsMade={this.state.teamOneGoals} 
+               goalPercentage={this.state.teamOneGoalPercentage}/>
             <div className="versus">
               <h2>VS</h2>
             </div>
-             <Team teamName='Univ Of Southern North Dakota at Hoople Uncertain Buffalos' teamImage='./Images/bison-160267_960_720.png'/>
+            <Team teamName='Univ Of Southern North Dakota at Hoople Uncertain Buffalos' teamImage='./Images/bison-160267_960_720.png' 
+              shotEventHandler={this.teamTwoShotHandler} shotsTaken={this.state.teamTwoShots} goalsMade={this.state.teamTwoGoals} 
+              goalPercentage={this.state.teamTwoGoalPercentage}/>
           </div>
         </div>
-      )
+        )
+      }
     }
+
+    // Functions
+    // Team class (turn this into a function)
+      function Team (props) {
+        return(
+          <div className="Team">
+              <h2>{props.teamName}</h2>
+              <img src={props.teamImage} alt={props.teamName} />
+              <button onClick={props.shotEventHandler}>Take Shot</button><br></br>
+            <div>
+              Shots Taken: {props.shotsTaken}
+            </div>
+            <div>
+              Goals: {props.goalsMade}
+            </div>
+            <div>
+              Scoring Percentage: {props.goalPercentage}
+            </div>
+          </div>
+             
+          )
+      }
+
 
 
     // An App component under which all other components will be added
     function App (props) {
       return (
         <div>
-          <Game venueName='Slurms McKenzie'/>
+          <Game venueName='Slurms McKenzie Arena'/>
         </div>
       )
     }

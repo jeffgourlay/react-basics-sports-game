@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600&family=Potta+One&display=swap');
+
 html * {
     box-sizing: border-box;
+    font-family: Oswald;
 }
   
 body {
@@ -29,6 +32,7 @@ img {
     align-items: center;
     justify-content: space-between;
     height: 30rem;
+    font-family: 'Potta One', Oswald, sans-serif;
 }
 
 .Team .identity {
@@ -43,11 +47,16 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color:magenta;
 }
   
 button {
+    align-self: center;
     background-color: lightblue;
     display: block;
-    width: 100%;
+    box-shadow: 2px 2px 0 black;
+    border-radius: 50px;
+    width:50px;
+    font-size:15px;
 }
 

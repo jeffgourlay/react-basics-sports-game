@@ -60,3 +60,8 @@ img {
     font-size:15px;
 }
 
+.resetButton {
+    background-color: red;
+    font-size: 18px;
+}
+

@@ -26,6 +26,7 @@
       constructor(props) {
         super(props)
         this.state = {
+          gameResets: 0,
           teamOneGoals: 0,
           teamOneName: '',
           teamOneGoalPercentage: '',
@@ -88,8 +89,13 @@
 
       }
 
-
       // End TODO
+      resetHandler = (event) => {
+        this.setState((state, props) => ({
+          gameResets: state.gameResets + 1
+        }))
+      }
+
       render (props) {
         return(
         <div className='Game'>
@@ -106,6 +112,9 @@
               shotEventHandler={this.teamTwoShotHandler} shotsTaken={this.state.teamTwoShots} goalsMade={this.state.teamTwoGoals} 
               goalPercentage={this.state.teamTwoGoalPercentage}/>
           </div>
+          <div>
+            <button className='resetButton' onClick={this.resetHandler}>Reset</button><br/>Resets: {this.state.gameResets}
+          </div>
         </div>
         )
       }
@@ -118,7 +127,7 @@
           <div className="Team">
               <h2>{props.teamName}</h2>
               <img src={props.teamImage} alt={props.teamName} />
-              <button onClick={props.shotEventHandler}>Take Shot</button><br></br>
+              <button className='shotButton' onClick={props.shotEventHandler}>Take Shot</button><br></br>
             <div>
               Shots Taken: {props.shotsTaken}
             </div>

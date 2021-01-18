@@ -50,7 +50,7 @@ img {
     color:magenta;
 }
   
-button {
+.shotButton {
     align-self: center;
     background-color: lightblue;
     display: block;

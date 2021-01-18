@@ -92,8 +92,17 @@
       // End TODO
       resetHandler = (event) => {
         this.setState((state, props) => ({
-          gameResets: state.gameResets + 1
+          gameResets: state.gameResets + 1,
+          teamOneGoals: 0,
+          teamOneGoalPercentage: '',
+          teamOneShots: 0,
+          teamTwoGoals: 0,
+          teamTwoGoalPercentage: '',
+          teamTwoShots: 0
+
         }))
+
+        console.log(this.state.teamOneGoals)
       }
 
       render (props) {

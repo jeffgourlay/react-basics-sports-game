@@ -3,6 +3,9 @@
 html * {
     box-sizing: border-box;
     font-family: Oswald;
+    background-color: lightgreen;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
   
 body {
